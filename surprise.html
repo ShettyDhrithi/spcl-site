@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Questions 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", cursive;
+      text-align: center;
+      background: linear-gradient(to right, pink, lavender);
+      padding: 20px;
+    }
+
+    h1 {
+      color: #d63384;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .box {
+      background: rgba(255, 255, 255, 0.92);
+      width: 95%;
+      max-width: 550px;
+      margin: auto;
+      padding: 25px;
+      border-radius: 25px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    }
+
+    p {
+      font-size: 1.2rem;
+      color: #ff006e;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 14px;
+      margin-top: 10px;
+      border-radius: 15px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4d6d;
+      color: white;
+      font-size: 1.2rem;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>💖 I'm ur Jin for todayyy 😁</h1>
+
+  <div class="box">
+
+    <!-- ✅ Custom Form -->
+    <form id="valentineForm">
+
+      <p>Tell me ur wish 💭 <br>(I'll try my best to fulfill it 😇)</p>
+      <textarea name="Wish" rows="2" required></textarea>
+
+      <p>🎶 Song that reminds u of us?</p>
+      <input name="Song" type="text" required>
+
+      <p>💌 What's one thing you love and hate about me?</p>
+      <textarea name="LoveHate" rows="3" required></textarea>
+
+      <button type="submit">Submit 💝</button>
+    </form>
+
+  </div>
+
+  <script>
+    const form = document.getElementById("valentineForm");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault(); // stop normal submit
+
+      fetch("https://formspree.io/f/mojlggkp", {
+        method: "POST",
+        body: new FormData(form),
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // ✅ Redirect after sending email
+          window.location.href = "delivered.html";
+        } else {
+          alert("Oops! Something went wrong 😢");
+        }
+      })
+      .catch(error => {
+        alert("Error sending message 😢");
+      });
+    });
+  </script>
+
+</body>
+</html>
+

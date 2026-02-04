@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Surprise 💖</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Comic Sans MS", cursive;
+      overflow: hidden;
+      text-align: center;
+      animation: bg 5s infinite;
+    }
+
+    /* Background Gradient Animation */
+    @keyframes bg {
+      0% {background: pink;}
+      50% {background: lavender;}
+      100% {background: peach;}
+    }
+
+    /* Card Flip Container */
+    .card-container {
+      width: 350px;
+      height: 420px;
+      margin: 80px auto;
+      perspective: 1000px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+    }
+
+    /* Flip on Click */
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+
+    /* Front + Back */
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 25px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* Front Side */
+    .front {
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    /* Back Side */
+    .back {
+      background: rgba(255, 240, 250, 0.9);
+      transform: rotateY(180deg);
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #d63384;
+    }
+
+    button {
+      font-size: 1.2rem;
+      padding: 12px 25px;
+      margin: 15px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    #yesBtn {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    #yesBtn:hover {
+      transform: scale(1.1);
+    }
+
+    #noBtn {
+      background: #adb5bd;
+      color: white;
+      position: absolute;
+      bottom: 10px;
+      
+     
+    }
+
+    #message {
+      font-size: 1.4rem;
+      color: #ff006e;
+      display: none;
+      margin-top: 15px;
+    }
+
+    /* Surprise Link Button */
+    .surprise-link {
+      display: none;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: gold;
+      color: black;
+      font-size: 1.1rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .surprise-link:hover {
+      transform: scale(1.1);
+    }
+
+    /* Floating Hearts Animation */
+    .heart {
+      position: absolute;
+      color: red;
+      font-size: 20px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      from {
+        transform: translateY(100vh);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh);
+        opacity: 0;
+      }
+    }
+
+    /* Mobile Friendly */
+    @media (max-width: 600px) {
+      .card-container {
+        width: 90%;
+        height: 420px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      button {
+        width: 140px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Flip Card -->
+  <div class="card-container">
+    <div class="card" id="valentineCard">
+
+      <!-- FRONT SIDE -->
+      <div class="card-face front">
+        <h1>💖 Hey Viky!! <br>Will You Be My Valentine? 💖</h1>
+
+        <button id="yesBtn">Yes ❤️</button>
+        <button id="noBtn">No 💔</button>
+      </div>
+
+      <!-- BACK SIDE -->
+      <div class="card-face back">
+        <div id="message">
+          <img src="https://media.tenor.com/O3QyeZpDgn8AAAAC/yay.gif"
+               width="180"><br><br>
+          Yayyy!! 🥰💘 <br>
+          Happy Valentine’s Day Doctree ❤️
+        </div>
+
+        <!-- Surprise Link Appears After Flip -->
+       <a href="surprise.html" class="surprise-link" id="surpriseBtn">
+  🎁 Click Here for Surprise 🎁
+</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    const message = document.getElementById("message");
+    const card = document.getElementById("valentineCard");
+    const surpriseBtn = document.getElementById("surpriseBtn");
+
+    // YES button click → Flip + Show Message + Surprise Button
+    yesBtn.addEventListener("click", () => {
+      card.classList.add("flipped");
+
+      setTimeout(() => {
+        message.style.display = "block";
+        surpriseBtn.style.display = "inline-block";
+      }, 800);
+    });
+
+    // NO button runs away
+    noBtn.addEventListener("mouseover", () => {
+      let x = Math.random() * (window.innerWidth - 120);
+      let y = Math.random() * (window.innerHeight - 60);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    });
+
+    // Floating hearts generator
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "❤️";
+
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 15 + "px";
+      heart.style.animationDuration = Math.random() * 3 + 3 + "s";
+
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 5000);
+    }
+
+    setInterval(createHeart, 300);
+  </script>
+
+</body>
+</html>
+
